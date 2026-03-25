@@ -368,9 +368,8 @@ function render() {
         <div class="done-icon">🌸</div>
         <h2 class="done-title">你完成了今天的練習</h2>
         <p class="done-text">
-          這些情境，離你們不遠。<br>
-          當你發現身邊有人受傷，或者那個人是你自己——<br>
-          勇敢拿起話筒，會有人接住你。<br><br>
+          這些情境不是電影，是很多人真實遭遇過的事。<br>
+          你選的每一個答案，代表你在那個當下願意怎麼做。<br><br>
           <strong>不論受害者的穿著、行為、或喝了多少酒——<br>
           錯，都在做出傷害行為的那個人。</strong>
         </p>
@@ -422,17 +421,7 @@ function render() {
     const isLast = storyIndex >= stories.length - 1;
     const nextBtn = revealed ? `
       <div class="clearfix">
-        <div id="countdown-wrap" style="text-align:right; margin-bottom:8px;">
-          <span style="font-family:sans-serif; font-size:13px; color:#888;">請聆聽老師說明法律補充</span>
-          <span id="countdown-badge" style="
-            display:inline-block; margin-left:8px;
-            background:#f0f0f0; border-radius:20px;
-            padding:4px 14px; font-size:14px;
-            font-family:sans-serif; color:#555;
-            font-weight:600;
-          ">⏱ <span id="countdown-num">40</span>s</span>
-        </div>
-        <button id="next-btn" class="btn-next" style="background:${story.color}; opacity:0.35; pointer-events:none;" onclick="nextPhase()">
+        <button class="btn-next" style="background:${story.color}" onclick="nextPhase()">
           ${isLast ? "完成練習 →" : "下一個情境 →"}
         </button>
       </div>` : "";
@@ -496,29 +485,6 @@ function selectChoice(idx) {
   selectedIdx = idx;
   revealed = true;
   render();
-
-  // Start 40-second countdown after render
-  let seconds = 40;
-  const interval = setInterval(() => {
-    seconds--;
-    const numEl = document.getElementById("countdown-num");
-    const btnEl = document.getElementById("next-btn");
-    const badgeEl = document.getElementById("countdown-badge");
-    if (!numEl) { clearInterval(interval); return; }
-    numEl.textContent = seconds;
-    if (seconds <= 0) {
-      clearInterval(interval);
-      if (btnEl) {
-        btnEl.style.opacity = "1";
-        btnEl.style.pointerEvents = "auto";
-      }
-      if (badgeEl) {
-        badgeEl.style.background = "#e8f8ee";
-        badgeEl.style.color = "#2e7d32";
-        badgeEl.innerHTML = "✓ 可以繼續";
-      }
-    }
-  }, 1000);
 }
 
 function restart() {
